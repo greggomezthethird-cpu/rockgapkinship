@@ -8,16 +8,16 @@
 window.openDrawer = function(id) {
   var d = document.getElementById(id);
   var o = document.getElementById('drawerOverlay');
-  if(d) d.classList.add('open');
-  if(o) o.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  if(d){ d.style.cssText='display:flex !important;flex-direction:column;position:fixed;top:0;height:100%;width:100%;max-width:500px;background:#F5EFE0;z-index:9999;overflow-y:auto;-webkit-overflow-scrolling:touch;'; }
+  if(o){ o.style.cssText='display:block !important;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:9998;'; }
+  document.body.style.overflow='hidden';
 };
 window.closeDrawer = function() {
   var drawers = document.querySelectorAll('.drawer');
-  for(var i=0; i<drawers.length; i++) drawers[i].classList.remove('open');
+  for(var i=0; i<drawers.length; i++) drawers[i].style.cssText='';
   var o = document.getElementById('drawerOverlay');
-  if(o) o.classList.remove('open');
-  document.body.style.overflow = '';
+  if(o) o.style.cssText='';
+  document.body.style.overflow='';
 };
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Barlow+Condensed:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
@@ -366,25 +366,22 @@ footer{background:#0f0e08;padding:2.5rem 4rem;display:flex;justify-content:cente
 
 /* ── SLIDE-IN BIO DRAWERS ── */
 .drawer-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,0.55);
-  z-index:1000;opacity:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;pointer-events:none;transition:opacity .35s ease;
+  display:none;
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.55);
+  z-index:9998;
 }
-.drawer-overlay.open{opacity:1;pointer-events:all;}
+.drawer-overlay.open{display:block;}
 .drawer{
+  display:none;
   position:fixed;top:0;width:100%;max-width:500px;height:100%;
-  background:var(--cream);z-index:1001;overflow-y:auto;
-  display:flex;flex-direction:column;
+  background:var(--cream);z-index:9999;overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
 }
-.drawer-left{
-  left:-520px;right:auto;
-  transition:left .4s cubic-bezier(.4,0,.2,1);
-}
-.drawer-right{
-  right:-520px;left:auto;
-  transition:right .4s cubic-bezier(.4,0,.2,1);
-}
-.drawer-left.open{left:0;}
-.drawer-right.open{right:0;}
+.drawer-left{left:0;right:auto;}
+.drawer-right{right:0;left:auto;}
+.drawer-left.open{display:flex;flex-direction:column;}
+.drawer-right.open{display:flex;flex-direction:column;}
 .drawer-header{
   padding:2rem 2rem 1.25rem;
   border-bottom:2px solid var(--teal);
@@ -509,8 +506,7 @@ footer{background:#0f0e08;padding:2.5rem 4rem;display:flex;justify-content:cente
   .footer-copy{text-align:left !important;}
 
   /* Drawers */
-  .drawer-left{max-width:100% !important;left:-100% !important;}
-  .drawer-right{max-width:100% !important;right:-100% !important;}
+  .drawer{max-width:100% !important;}
 }
 @media screen and (max-width:480px){
   h1.hero-title{font-size:2rem !important;}
