@@ -284,7 +284,7 @@ h2.sec-title{
 .card-body p{font-size:1rem;line-height:1.85;color:#3a3020;font-weight:400;margin-bottom:0.7rem;}
 .card-heritage{margin-top:1rem;padding:0.85rem 1.1rem;background:var(--cream2);border-left:3px solid var(--teal);border-radius:0 4px 4px 0;font-size:0.85rem;color:var(--teal);font-style:italic;line-height:1.55;}
 .card-heritage.terra{border-left-color:var(--terra);color:var(--terra);}
-.card-readmore{background:none;cursor:pointer;
+.card-readmore{background:none;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
   display:inline-flex;align-items:center;gap:0.4rem;
   margin-top:1rem;
   font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:0.8rem;
@@ -351,7 +351,7 @@ footer{background:#0f0e08;padding:2.5rem 4rem;display:flex;justify-content:cente
 /* ── SLIDE-IN BIO DRAWERS ── */
 .drawer-overlay{
   position:fixed;inset:0;background:rgba(0,0,0,0.55);
-  z-index:1000;opacity:0;pointer-events:none;transition:opacity .35s ease;
+  z-index:1000;opacity:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;pointer-events:none;transition:opacity .35s ease;
 }
 .drawer-overlay.open{opacity:1;pointer-events:all;}
 .drawer{
@@ -504,11 +504,6 @@ footer{background:#0f0e08;padding:2.5rem 4rem;display:flex;justify-content:cente
   h1.hero-title{font-size:2rem;}
   h2.sec-title{font-size:1.5rem;}
   .services-grid,.story-boxes{grid-template-columns:1fr !important;}
-}
-
-/* MOBILE TEST - if this works you'll see RED background on mobile */
-@media screen and (max-width:768px) {
-  body { background: red !important; }
 }
 </style>
 </head>
@@ -737,7 +732,7 @@ footer{background:#0f0e08;padding:2.5rem 4rem;display:flex;justify-content:cente
         <div class="card-heritage">
           Member of the Rock Gap Clan, born for the Towering House Clan &middot; Maternal clan: Bitter Water &middot; Paternal clan: Yucca Fruit Strung Out in a Line
         </div>
-        <button class="card-readmore" onclick="openDrawer('drawerSerena')">Read more about Serena &rarr;</button>
+        <button class="card-readmore" data-drawer="drawerSerena">Read more about Serena &rarr;</button>
       </div>
     </div>
     <!-- Dr. Cynthia -->
@@ -761,7 +756,7 @@ footer{background:#0f0e08;padding:2.5rem 4rem;display:flex;justify-content:cente
         <div class="card-heritage terra">
           Heart-centered leader &middot; Community advocate &middot; Devoted to fostering authentic collaboration and reclaiming community narratives
         </div>
-        <button class="card-readmore" onclick="openDrawer('drawerCindy')">Read more about Dr. Mackey &rarr;</button>
+        <button class="card-readmore" data-drawer="drawerCindy">Read more about Dr. Mackey &rarr;</button>
       </div>
     </div>
   </div>
@@ -862,10 +857,46 @@ function closeDrawer() {
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
+
+// Mobile-friendly touch handlers
+document.addEventListener('DOMContentLoaded', function() {
+  // Attach touch+click to read more buttons
+  document.querySelectorAll('.card-readmore').forEach(function(btn) {
+    ['click','touchend'].forEach(function(evt) {
+      btn.addEventListener(evt, function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var id = btn.getAttribute('data-drawer');
+        if(id) openDrawer(id);
+      }, {passive:false});
+    });
+  });
+  
+  // Attach touch+click to close buttons
+  document.querySelectorAll('.drawer-close').forEach(function(btn) {
+    ['click','touchend'].forEach(function(evt) {
+      btn.addEventListener(evt, function(e) {
+        e.preventDefault();
+        closeDrawer();
+      }, {passive:false});
+    });
+  });
+
+  // Overlay touch to close
+  var overlay = document.getElementById('drawerOverlay');
+  if(overlay) {
+    ['click','touchend'].forEach(function(evt) {
+      overlay.addEventListener(evt, function(e) {
+        e.preventDefault();
+        closeDrawer();
+      }, {passive:false});
+    });
+  }
+});
 </script>
 
 <!-- BIO DRAWERS -->
-<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer-overlay" id="drawerOverlay"></div>
 
 <div class="drawer drawer-left" id="drawerSerena">
   <div class="drawer-header">
@@ -874,7 +905,7 @@ document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer()
       <div class="drawer-name">Serena Denetsosie</div>
       <div class="drawer-role">MSW &middot; Founder</div>
     </div>
-    <button class="drawer-close" onclick="closeDrawer()">&times;</button>
+    <button class="drawer-close">&times;</button>
   </div>
   <div class="drawer-body">
     <div class="drawer-byline">Written with appreciation and love by Dr. Cynthia Mackey</div>
@@ -895,7 +926,7 @@ document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer()
       <div class="drawer-name">Dr. Cynthia Mackey</div>
       <div class="drawer-role">Ph.D. &middot; Managing Partner</div>
     </div>
-    <button class="drawer-close" onclick="closeDrawer()">&times;</button>
+    <button class="drawer-close">&times;</button>
   </div>
   <div class="drawer-body">
     <div class="drawer-byline">Written with appreciation and love by Serena Denetsosie</div>
