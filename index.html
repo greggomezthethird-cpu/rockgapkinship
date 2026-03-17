@@ -267,7 +267,7 @@ h2.sec-title{
 .service-card:nth-child(4){border-top-color:var(--olive);}
 .service-card:nth-child(5){border-top-color:var(--terra2);}
 .service-card:nth-child(6){border-top-color:var(--teal2);}
-.service-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(74,62,32,0.13);}
+.service-card:hover{box-shadow:0 10px 28px rgba(74,62,32,0.13);}
 .service-card h3{
   font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;
   letter-spacing:0.06em;text-transform:uppercase;color:var(--dark);margin-bottom:0.6rem;
@@ -282,7 +282,7 @@ h2.sec-title{
 .team-head{max-width:1120px;margin:0 auto 3.5rem;}
 .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;max-width:1120px;margin:0 auto;}
 .team-card{background:var(--cream);border-radius:8px;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,0.25);transition:transform .2s,box-shadow .2s;}
-.team-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,0.35);}
+.team-card:hover{box-shadow:0 14px 36px rgba(0,0,0,0.35);}
 .card-head{padding:2rem 2rem 1.5rem;display:flex;align-items:center;gap:1.4rem;}
 .card-head.olive-bg{background:var(--olive);}
 .card-head.teal-bg{background:var(--teal);}
@@ -356,9 +356,9 @@ footer{background:#0f0e08;padding:2.5rem 4rem;display:flex;justify-content:cente
 .footer-copy{font-size:0.78rem;color:rgba(245,239,224,0.3);text-align:right;line-height:1.6;}
 
 /* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease;}
-.reveal.show{opacity:1;transform:translateY(0);}
+@keyframes fadeUp{from{opacity:0;}to{opacity:1;}}
+.reveal{opacity:0;transition:opacity .8s ease;}
+.reveal.show{opacity:1;}
 
 /* ── RESPONSIVE ── */
 
