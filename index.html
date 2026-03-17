@@ -345,22 +345,7 @@ footer{background:#0f0e08;padding:2.5rem 4rem;display:flex;justify-content:cente
 .reveal.show{opacity:1;transform:translateY(0);}
 
 /* ── RESPONSIVE ── */
-@media(max-width:960px){
-  section{padding:4rem 1.5rem;}
-  #hero{padding:6rem 1.5rem 0;flex-direction:column;}
-  .hero-art{display:none;}
-  .hero-mission{width:calc(100% + 3rem);margin-left:-1.5rem;padding:2rem 1.5rem;}
-  .how-inner,.story-boxes,.services-grid,.team-grid,.team-visuals{grid-template-columns:1fr;}
-  .process-steps{flex-direction:column;}
-  .process-step{border-right:none;border-bottom:1px solid rgba(126,200,192,0.12);}
-  .process-step:last-child{border-bottom:none;}
-  #story,#how,#contact,#services,#team{padding:4rem 1.5rem;}
-  .form-row{grid-template-columns:1fr;}
-  footer{flex-direction:column;align-items:flex-start;}
-  .footer-copy{text-align:left;}
-  .nav-links{display:none;}
-  .hamburger{display:flex;}
-}
+
 @media(max-width:560px){.services-grid{grid-template-columns:1fr;}}
 
 /* ── SLIDE-IN BIO DRAWERS ── */
@@ -805,18 +790,8 @@ footer{background:#0f0e08;padding:2.5rem 4rem;display:flex;justify-content:cente
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
-function openDrawer(id) {
-  document.getElementById(id).classList.add('open');
-  document.getElementById('drawerOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeDrawer() {
-  document.querySelectorAll('.drawer').forEach(d => d.classList.remove('open'));
-  document.getElementById('drawerOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
-</script><script>
+</script>
+<script>
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
 }, { threshold: 0.1 });
@@ -845,6 +820,18 @@ window.addEventListener('scroll', () => {
     a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--teal-light)' : '';
   });
 });
+
+function openDrawer(id) {
+  document.getElementById(id).classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  document.querySelectorAll('.drawer').forEach(d => d.classList.remove('open'));
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
 </script>
 
 <!-- BIO DRAWERS -->
